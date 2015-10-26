@@ -1,0 +1,2 @@
+defmodule Goldilixir do
+end
