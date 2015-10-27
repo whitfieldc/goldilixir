@@ -7,7 +7,14 @@ defmodule Goldilixir do
 
   def get_phrases(filename) do
     Phrasefile.get!(filename).body
-    |> IO.puts
+    |> String.split("\n")
+
+  end
+
+  def filter_and_inject_puns(phrases, keyword) do
+    phrases
+    |> Enum.filter(fn(phrase) -> String.contains?(phrase, keyword) end)
+    # |> Enum.filter_map(fn(phrase) -> String.contains?(phrase, keyword) end, &(String.replace(&1) )
   end
 end
 
