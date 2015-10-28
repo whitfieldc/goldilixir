@@ -7,7 +7,6 @@ defmodule Goldilixir do
   def get_phrases(filename) do
     Phrasefile.get!(filename).body
     |> String.split("\n")
-    |> Enum.map(fn(phrase) -> phrase end)
 
   end
 
