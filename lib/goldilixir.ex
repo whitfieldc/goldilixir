@@ -1,20 +1,22 @@
 defmodule Goldilixir do
   def find_perfect_rhymes(keyword) do
     resp = Rhymebrain.get!(keyword).body
-    |> Enum.filter(fn(word_match) -> word_match["score"] >= 300 end)
-    # |> IO.inspect
+    |> Enum.filter_map(fn(word_match) -> word_match["score"] >= 300 end, &(&1["word"]))
   end
 
   def get_phrases(filename) do
     Phrasefile.get!(filename).body
     |> String.split("\n")
+    |> Enum.map(fn(phrase) -> phrase end)
 
   end
 
-  def filter_and_inject_puns(phrases, keyword) do
+  def filter_and_inject_puns(phrases, rhyming_words, keyword) do
     phrases
-    |> Enum.filter(fn(phrase) -> String.contains?(phrase, keyword) end)
-    # |> Enum.filter_map(fn(phrase) -> String.contains?(phrase, keyword) end, &(String.replace(&1) )
+    |> Enum.filter_map(fn(phrase) -> Enum.each(rhyming_words, fn(word) ->
+#### regex to match word to phrase without including matches to part of a word
+
+      ) end, &(String.replace(&1, rhyming_words, keyword) ))
   end
 end
 
