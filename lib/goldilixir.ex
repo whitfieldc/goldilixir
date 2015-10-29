@@ -12,10 +12,11 @@ defmodule Goldilixir do
 
   def filter_and_inject_puns(phrases, rhyming_words, keyword) do
     phrases
-    |> Enum.filter_map(fn(phrase) -> Enum.each(rhyming_words, fn(word) ->
-#### regex to match word to phrase without including matches to part of a word
-
-      ) end, &(String.replace(&1, rhyming_words, keyword) ))
+    |> Enum.filter(fn(phrase) -> Enum.any?(rhyming_words,
+      fn(word) ->
+        Regex.match?(Regex.compile!("\\W" <> word <>"(?!\\w)", "i"), phrase)
+      end) end)
+     # &(String.replace(&1, rhyming_words, keyword) )
   end
 end
 
