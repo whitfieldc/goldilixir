@@ -14,12 +14,7 @@ defmodule Goldilixir do
     wordstring = Enum.join(rhyming_words, "|")
     regex = Regex.compile!("\\W(" <> wordstring <>")(?!\\w)", "i")
     phrases
-    # |> Enum.filter(fn(phrase) -> Enum.any?(rhyming_words,
-    #   fn(word) ->
-    #     Regex.match?(Regex.compile!("\\W" <> word <>"(?!\\w)", "i"), phrase)
-    #   end) end)
     |> Enum.filter_map(fn(phrase) -> Regex.match?(regex, phrase) end, &(String.replace(&1, regex, keyword)))
-     # &(String.replace(&1, rhyming_words, keyword) )
   end
 end
 
